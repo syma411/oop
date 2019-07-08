@@ -1,0 +1,54 @@
+@keyframes do-n {
+  0%{
+    opacity:0;
+    transform: translateX(50px);
+  }
+  100%{
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+@keyframes ba-n {
+  0%{
+    opacity:0;
+    transform: translateX(0);
+  }
+  100%{
+    opacity: 1;
+    transform: translateX(50px);
+  }
+}
+
+
+
+body{
+  margin:0px;
+}
+
+
+.aaa{
+  animation-name:do-n;
+  animation-duration: 2s;
+  animation-iteration-count: 1;
+}
+
+
+.security{
+  background-color: yellow;
+  padding: 40px;
+  font-size: 25px;
+
+}
+
+.database{
+  background-color: lightgreen;
+  padding: 40px;
+  font-size: 25px;
+  text-align: right;
+
+}
+.network{
+  background-color: lightblue;
+  padding: 40px;
+  font-size: 25px;
+}
