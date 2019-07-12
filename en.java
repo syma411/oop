@@ -1,105 +1,54 @@
-package en;
+ 
+import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.geometry.Side;
+import javafx.scene.Scene;
+import javafx.scene.chart.PieChart;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
+ 
+public class en extends Application {
+ 
+    @Override
+    public void start(Stage primaryStage) throws Exception{
+ 
+        StackPane root = new StackPane();
+        PieChart chart = new PieChart();
+        ObservableList<PieChart.Data> series = FXCollections.observableArrayList();
+        //ã“ã“ã«ãƒ‘ã‚¤ã‚·ãƒ¼ãƒˆã®ãƒ‡ãƒ¼ã‚¿ã‚’å…¥ã‚Œã¦ã„ãè‡ªå‹•ã§å‹•ã‹ã›ã‚Œã°æœ€é«˜
+        series.addAll(
+                new PieChart.Data("ã”é£¯", 15),
+                new PieChart.Data("æ—…è¡Œ", 15),
+                new PieChart.Data("ç”Ÿæ´»ç”¨å“", 6.782)
+//                new PieChart.Data("æœ", 4.909),
+//                new PieChart.Data("a", 3.664),
+//                new PieChart.Data("b", 2.530),
+//                new PieChart.Data("c", 2.342),
+//                new PieChart.Data("d", 2.062),
+//                new PieChart.Data("e", 1.899),
+//                new PieChart.Data("f", 1.821),
+//                new PieChart.Data("g", 1.806),
+//                new PieChart.Data("h", 1.783),
+//                new PieChart.Data("i", 10.065)
+        );
+        //seriesã«å…¥ã£ãŸãƒ‡ãƒ¼ã‚¿ã‚’è²¼ã‚Šä»˜ã‘ã‚‹
+        chart.setData(series);
+        chart.setTitle("Graph");
+        //ã‚°ãƒ©ãƒ•ã‹ã‚‰ã®è·é›¢
+        chart.setLabelLineLength(10);
+        //ãƒ©ãƒ™ãƒ«ã®ä½ç½®ã‚’æ±ºã‚ã‚‹
+        chart.setLegendSide(Side.LEFT);
+        root.getChildren().add(chart);
+ 
+        primaryStage.setTitle("å††ã‚°ãƒ©ãƒ•");
+        primaryStage.setScene(new Scene(root, 600, 600));
+        primaryStage.show();
 
-	import java.awt.Color;
-	import java.awt.Dimension;
-	import java.awt.Graphics;
-	import java.awt.Graphics2D;
-	import java.lang.String;
-	import java.lang.System;
-	import java.util.Map;
-	import java.util.LinkedHashMap;
-	import javax.swing.JFrame;
-	import javax.swing.JPanel;
-	import javax.swing.JLabel;
-	import javax.swing.JButton;
-	import javax.swing.border.*;
-	import static java.awt.RenderingHints.KEY_ANTIALIASING;
-	import static java.awt.RenderingHints.VALUE_ANTIALIAS_ON;
-
-
-
-	public class en extends JFrame {
-
-	    public en() {
-	        add(new DrawPanel());
-	    }
-
-	    public static void main(String[] A00) {
-	        JFrame L00 = new en();
-	        L00.setTitle("‰~ƒOƒ‰ƒt");
-	        L00.setDefaultCloseOperation(EXIT_ON_CLOSE);
-	        L00.setBackground(Color.black);
-	        L00.pack();
-	        L00.setResizable(false);
-	        L00.setVisible(true);
-	        
-	        
-	   }
-	
-		}	
-	
-	//‚í‚¯‚é
-	class DrawPanel extends JPanel {
-		
-		JLabel label = new JLabel("aaa");
-
-		
-	    private static final int C00 = 200;
-	    private static final int C01 = 200;
-	    private static final int C02 = 20;  // ƒOƒ‰ƒt‚Ì•\¦ˆÊ’u(x•ûŒüAy•ûŒüŒ“—p)
-	    private static final int C03 = 5;   // ‰e‚Ì‚¸‚ç‚µŠÔŠu(x•ûŒüAy•ûŒüŒ“—p)
-	    private static final int C04 = 150;
-	    private Color I00 = new Color(64, 64, 64);    // ‰e‚Æ‚Ó‚¿‚ÌF
-
-	    private Map<Color, Integer> I01;
-	    private int I02;
-
-	    public DrawPanel() {
-	        setBackground(Color.white);
-	        setPreferredSize(new Dimension(C00, C01));
-	        add(label);
-	        I01 = new LinkedHashMap<Color, Integer>();
-	        I01.put(new Color(255, 32, 32), 50);
-	        I01.put(new Color(64, 192, 32), 18);
-	        I01.put(new Color(96, 32, 255), 32);
-	        I01.put(new Color(255, 192, 0), 42);
-	        I01.put(new Color(0, 192, 255), 15);
-
-	        
-	        
-	        
-	        I02 = 0;
-	        for (int L01 : I01.values()) {
-	            I02 += L01;
-	        }
-	    }
-		
-
-	    public void paintComponent(Graphics A00) {
-	        super.paintComponent(A00);
-
-	        Graphics2D L00 = (Graphics2D)A00;
-	        L00.setRenderingHint(KEY_ANTIALIASING, VALUE_ANTIALIAS_ON);
-
-	        L00.setColor(I00);
-	        L00.fillOval(C02 + C03, C02 + C03, C04, C04);
-
-	        int L01 = 90;   // ‰~ƒOƒ‰ƒt‚Ì•`‰æŠJnŠp“x
-	        int L02 = 0;    // îŒ`‚Ì’†SŠp
-	        
-	        for (Color L03 : I01.keySet()) {
-	            L02 = Math.round(360f * I01.get(L03) / I02);
-	            L01 -= L02;
-	            L00.setColor(L03);
-	            L00.fillArc(C02, C02, C04, C04, L01, L02);
-	        }
-	        // lÌŒÜ“ü‚Ì“s‡‚Å“h‚èc‚µ‚ªo‚½ê‡‚Ì‘Îˆ
-	        L00.fillArc(C02, C02, C04, C04, -270, L02);
-
-	        L00.setColor(I00);
-	        L00.drawOval(C02, C02, C04, C04);
-	    }
-	}
-	
-
-
+        
+    }
+ 
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
