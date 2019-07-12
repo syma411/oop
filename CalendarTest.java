@@ -1,6 +1,7 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
@@ -75,7 +76,6 @@ public CalendarTest(String title) {
 }
 
 public void syori() {
-	Graphics g;
 String[] dayweek = { "日曜日", "月曜日", "火曜日", "水曜日", "木曜日", "金曜日", "土曜日" };
 
 // JPanel backpane = new JPanel(new BorderLayout()); // 背景用・・一番後ろのパネル
@@ -104,8 +104,7 @@ int dayofweek = calendar.get(Calendar.DAY_OF_WEEK); // 曜日の数字。
 // calendar.setで月初めの日付をゲットしているので、この曜日は必ず月初めの曜日となる。
 
 // 各ラベル・パネルの作成
-JLabel test = new JLabel("月");
-JLabel yearLabel = new JLabel(String.valueOf(setmonth) + "月");
+JLabel yearLabel = new JLabel(year + "年" + String.valueOf(setmonth) + "月");
 yearLabel.setFont(new Font("MS ゴシック",Font.PLAIN,24));
 yearLabel.setHorizontalAlignment(JLabel.CENTER);// ラベルの文字を中央に配置
 infopane.add(yearLabel, BorderLayout.CENTER);// セットした年をinfopaneのCENTERに貼り付けている
@@ -113,25 +112,33 @@ infopane.add(yearLabel, BorderLayout.CENTER);// セットした年をinfopaneのCENTERに
 if (setmonth == 12)
 setmonth = 0;
 
-ImageIcon icon = new ImageIcon("./マリオ.jpg");
-
-JButton nextmonth = new JButton("",icon);// 月間カレンダーの次の月へのボタン
-nextmonth.setIcon(icon);
-//JLabel imageLabel = new JLabel(icon);
-//nextmonth.add(imageLabel);
+//月間カレンダーの次の月へのボタン
+JButton nextmonth = new JButton("NEXT");
+nextmonth.setFont(new Font("メイリオ", Font.BOLD, 14));
+nextmonth.setBackground(Color.WHITE);
+nextmonth.setForeground(new Color(253,166,83));
+nextmonth.setBorderPainted(false);
+nextmonth.setFocusPainted(false);
 nextmonth.addActionListener(this);
 nextmonth.setActionCommand("next");
-
 infopane.add(nextmonth, BorderLayout.EAST);
+
 if (setmonth == 1)
 setmonth = 13;
 else if (setmonth == 0)
 setmonth = 12;
 
-JButton backmonth = new JButton("BACK");// 月間カレンダーの前の月へのボタン
+//月間カレンダーの前の月へのボタン
+JButton backmonth = new JButton("BACK");
+backmonth.setFont(new Font("メイリオ", Font.BOLD, 14));
+backmonth.setBackground(Color.WHITE);
+backmonth.setForeground(new Color(253,166,83));
+backmonth.setBorderPainted(false);
+backmonth.setFocusPainted(false);
+infopane.add(backmonth, BorderLayout.WEST);
 backmonth.addActionListener(this);
 backmonth.setActionCommand("back");
-infopane.add(backmonth, BorderLayout.WEST);
+
 
 JPanel dayname = new JPanel(new GridLayout(0, 7));
 dayname.setBackground(Color.white);
@@ -263,7 +270,7 @@ karapane.add(karamemo, BorderLayout.CENTER);
 }
 }
 // System.out.println("year" + setyear + "" + "month" + setmonth);
-System.out.println("a=" + a + " b=" + b + " c=" + c);
+//System.out.println("a=" + a + " b=" + b + " c=" + c);
 if (state == 1) {
 dailysyori();
 } else {
@@ -275,23 +282,23 @@ this.setVisible(true);
 }
 
 void dailysyori() {
-
-
-
-todosyori();
+//
+//
+//
+////todosyori();
 }
 
-void todosyori() {
-dayhozon = new JButton("保存する");
-dayhozon.addActionListener(new ActionListener() {
-public void actionPerformed(ActionEvent event) {
-
-restart();
-
-}
-});
-
-}
+//void todosyori() {
+//dayhozon = new JButton("保存する");
+//dayhozon.addActionListener(new ActionListener() {
+//public void actionPerformed(ActionEvent event) {
+//
+//restart();
+//
+//}
+//});
+//
+//}
 
 void yeardir() {
 yeardir = new File("C:\\HMCalendar\\" + String.valueOf(a));
@@ -374,7 +381,6 @@ b = b + 1;
 
 restart();
 
-System.out.println("if next");
 } else if (btncmd.equals("back")) {
 if (b == 1) { // 1月なら年に-1して12月に戻す
 a = a - 1;
@@ -386,9 +392,7 @@ restart();
 
 } else if (Integer.parseInt(btncmd) != 0
 && Integer.parseInt(btncmd) <= 31) {
-System.out.println(b + "/" + btncmd + "のボタンが押されました");
 c = Integer.parseInt(btncmd);
-System.out.println(c);
 restart();
 }
 
