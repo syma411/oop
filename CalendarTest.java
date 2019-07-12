@@ -1,6 +1,7 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.ActionEvent;
@@ -75,7 +76,6 @@ public CalendarTest(String title) {
 }
 
 public void syori() {
-	Graphics g;
 String[] dayweek = { "“ú—j“ú", "Œ—j“ú", "‰Î—j“ú", "…—j“ú", "–Ø—j“ú", "‹à—j“ú", "“y—j“ú" };
 
 // JPanel backpane = new JPanel(new BorderLayout()); // ”wŒi—pEEˆê”ÔŒã‚ë‚Ìƒpƒlƒ‹
@@ -104,8 +104,7 @@ int dayofweek = calendar.get(Calendar.DAY_OF_WEEK); // —j“ú‚Ì”šB
 // calendar.set‚ÅŒ‰‚ß‚Ì“ú•t‚ğƒQƒbƒg‚µ‚Ä‚¢‚é‚Ì‚ÅA‚±‚Ì—j“ú‚Í•K‚¸Œ‰‚ß‚Ì—j“ú‚Æ‚È‚éB
 
 // Šeƒ‰ƒxƒ‹Eƒpƒlƒ‹‚Ìì¬
-JLabel test = new JLabel("Œ");
-JLabel yearLabel = new JLabel(String.valueOf(setmonth) + "Œ");
+JLabel yearLabel = new JLabel(year + "”N" + String.valueOf(setmonth) + "Œ");
 yearLabel.setFont(new Font("MS ƒSƒVƒbƒN",Font.PLAIN,24));
 yearLabel.setHorizontalAlignment(JLabel.CENTER);// ƒ‰ƒxƒ‹‚Ì•¶š‚ğ’†‰›‚É”z’u
 infopane.add(yearLabel, BorderLayout.CENTER);// ƒZƒbƒg‚µ‚½”N‚ğinfopane‚ÌCENTER‚É“\‚è•t‚¯‚Ä‚¢‚é
@@ -113,25 +112,37 @@ infopane.add(yearLabel, BorderLayout.CENTER);// ƒZƒbƒg‚µ‚½”N‚ğinfopane‚ÌCENTER‚É
 if (setmonth == 12)
 setmonth = 0;
 
-ImageIcon icon = new ImageIcon("./ƒ}ƒŠƒI.jpg");
-
-JButton nextmonth = new JButton("",icon);// ŒŠÔƒJƒŒƒ“ƒ_[‚ÌŸ‚ÌŒ‚Ö‚Ìƒ{ƒ^ƒ“
-nextmonth.setIcon(icon);
-//JLabel imageLabel = new JLabel(icon);
-//nextmonth.add(imageLabel);
+//NEXTƒ{ƒ^ƒ“
+//Ÿ‚ÌŒ‚ğ•\¦‚·‚éƒ{ƒ^ƒ“
+JButton nextmonth = new JButton("NEXT");
+nextmonth.setBorderPainted(false);
+nextmonth.setFont(new Font("ƒƒCƒŠƒI", Font.BOLD, 14));
+nextmonth.setBackground(Color.WHITE);
+nextmonth.setForeground(new Color(253,166,83));
+nextmonth.setContentAreaFilled(false);
+nextmonth.setFocusPainted(false);
 nextmonth.addActionListener(this);
 nextmonth.setActionCommand("next");
-
 infopane.add(nextmonth, BorderLayout.EAST);
+
 if (setmonth == 1)
 setmonth = 13;
 else if (setmonth == 0)
 setmonth = 12;
 
-JButton backmonth = new JButton("BACK");// ŒŠÔƒJƒŒƒ“ƒ_[‚Ì‘O‚ÌŒ‚Ö‚Ìƒ{ƒ^ƒ“
+//BACKƒ{ƒ^ƒ“
+//‘O‚ÌŒ‚ğ•\¦‚·‚éƒ{ƒ^ƒ“
+JButton backmonth = new JButton("BACK");
+backmonth.setFont(new Font("ƒƒCƒŠƒI", Font.BOLD, 14));
+backmonth.setBackground(Color.WHITE);
+backmonth.setForeground(new Color(253,166,83));
+backmonth.setContentAreaFilled(false);
+backmonth.setBorderPainted(false);
+backmonth.setFocusPainted(false);
+infopane.add(backmonth, BorderLayout.WEST);
 backmonth.addActionListener(this);
 backmonth.setActionCommand("back");
-infopane.add(backmonth, BorderLayout.WEST);
+
 
 JPanel dayname = new JPanel(new GridLayout(0, 7));
 dayname.setBackground(Color.white);
@@ -139,7 +150,7 @@ infopane.add(dayname, BorderLayout.SOUTH);// —j“ú‚Ìƒ{ƒ^ƒ“‚ğ”z’u‚·‚é‚½‚ß‚Ìƒpƒlƒ‹‚
 EtchedBorder border = new EtchedBorder(EtchedBorder.LOWERED,
 Color.black, Color.white);// BorderƒNƒ‰ƒX‚ğg‚Á‚Äƒ{[ƒ_[‚ğì¬B
 
-// ƒ{ƒ^ƒ“‚É—j“ú‚ğ“ü‚ê‚Äì¬B”z—ñdayweek‚Ì’l‚ğ“ü‚ê‚Ä‚¢‚é
+// —j“ú‚ğ”z’u
 for (int r = 0; r < 7; r++) {
 JLabel dayNameLabel = new JLabel(dayweek[r]);
 dayname.add(dayNameLabel);
@@ -168,23 +179,28 @@ int bday = calendar.get(Calendar.DATE);
 int bmonth = calendar.get(Calendar.MONTH) + 1;
 for (int k = 1; k < dayofweek; k++) { // ‚Â‚«n‚ß‚Ì—j“ú‚Ü‚Å‹óƒpƒlƒ‹‚ğ”z’u‚·‚éB
 
-//‘OŒ‚ÌŒJ‰z“ú•t‚ğ•\¦
+//‘OŒ‚ÌŒJ‰z‚ğ”z’u
 JPanel karapane = new JPanel(new BorderLayout());
 karapane.setBackground(Color.white);
 daybackpane.add(karapane);
-JLabel karaLabel = new JLabel(String.valueOf((bday + (k - 1))));
-karaLabel.setFont(new Font("MS ƒSƒVƒbƒN",Font.PLAIN,15));
-karaLabel.setHorizontalAlignment(JLabel.CENTER);
-karapane.add(karaLabel, BorderLayout.NORTH);
+JButton karaButton = new JButton(String.valueOf((bday + (k - 1))));
+karaButton.setFont(new Font("MS ƒSƒVƒbƒN",Font.PLAIN,15));
+karaButton.setForeground(Color.LIGHT_GRAY);
+karaButton.setHorizontalAlignment(JLabel.CENTER);
+karaButton.setBorderPainted(false);
+karaButton.setContentAreaFilled(false);
+karaButton.setFocusPainted(false);
+karaButton.addActionListener(this);
+karaButton.setActionCommand("createWindow");
+karapane.add(karaButton, BorderLayout.NORTH);
 JTextArea karamemo = new JTextArea(); 
 karamemo.setEditable(false);
-//karamemo.setBorder(border);
 karamemo.setBackground(Color.WHITE);
 karamemo.setOpaque(true);
 karapane.add(karamemo, BorderLayout.CENTER);
 }
-// ///ŒŠÔƒJƒŒƒ“ƒ_[‚Ì–{‘Ì•”•ª/////
 
+// ƒJƒŒƒ“ƒ_[‚Ì–{‘Ì
 calendar.set(setyear, setmonth - 1, 1); // ƒJƒŒƒ“ƒ_[‚Ì‰Šú‰»B“ú•t‚ÌƒZƒbƒg(Œ‰‚ß‚Ì“ú•t)
 for (int i = 0; i < monthdays; i++) {
 int date = calendar.get(Calendar.DATE) + i;
@@ -237,7 +253,7 @@ memo.setOpaque(true);
 daypane.add(memo, BorderLayout.CENTER);
 
 }
-// Œ––‚Ì—j“ú‚ğ‹‚ß‚Ädayofweek‚É‘ã“ü‚·‚é
+// Œ––‚Ì—j“ú‚ğdayofweek‚É‘ã“ü‚·‚é
 calendar.add(Calendar.MONTH, 1);
 calendar.add(Calendar.DATE, -1);
 dayofweek = calendar.get(Calendar.DAY_OF_WEEK);
@@ -246,24 +262,25 @@ calendar.add(Calendar.DATE, 1);
 int nday = calendar.get(Calendar.DATE);
 int nmonth = calendar.get(Calendar.MONTH) + 1;
 
-for (int i = 0; i < 7 - dayofweek; i++) {// Œ––‚Ì—j“ú‚©‚ç‹óƒpƒlƒ‹‚ğ”z’u‚·‚éB
+//Œ––‚Ì—j“ú‚©‚ç‹óƒpƒlƒ‹‚ğ”z’u
+for (int i = 0; i < 7 - dayofweek; i++) {
 JPanel karapane = new JPanel(new BorderLayout());
 karapane.setBackground(Color.WHITE);
 daybackpane.add(karapane);
 JLabel karaLabel = new JLabel(String.valueOf((nday + i)));
+karaLabel.setForeground(Color.LIGHT_GRAY);
 karaLabel.setFont(new Font("MS ƒSƒVƒbƒN",Font.PLAIN,15));
 karapane.add(karaLabel, BorderLayout.NORTH);
 karaLabel.setHorizontalAlignment(JLabel.CENTER);
-JTextArea karamemo = new JTextArea(); // ‚±‚±‚ÍƒeƒLƒXƒgƒGƒŠƒA‚ğg‚Á‚½‚Ù‚¤‚ª‚¢‚¢‚Ì‚©‚ÈH
+JTextArea karamemo = new JTextArea(); 
 karamemo.setEditable(false);
-//karamemo.setBorder(border);// cü
 karamemo.setBackground(Color.WHITE);
 karamemo.setOpaque(true);
 karapane.add(karamemo, BorderLayout.CENTER);
 }
 }
 // System.out.println("year" + setyear + "" + "month" + setmonth);
-System.out.println("a=" + a + " b=" + b + " c=" + c);
+//System.out.println("a=" + a + " b=" + b + " c=" + c);
 if (state == 1) {
 dailysyori();
 } else {
@@ -275,23 +292,23 @@ this.setVisible(true);
 }
 
 void dailysyori() {
-
-
-
-todosyori();
+//
+//
+//
+////todosyori();
 }
 
-void todosyori() {
-dayhozon = new JButton("•Û‘¶‚·‚é");
-dayhozon.addActionListener(new ActionListener() {
-public void actionPerformed(ActionEvent event) {
-
-restart();
-
-}
-});
-
-}
+//void todosyori() {
+//dayhozon = new JButton("•Û‘¶‚·‚é");
+//dayhozon.addActionListener(new ActionListener() {
+//public void actionPerformed(ActionEvent event) {
+//
+//restart();
+//
+//}
+//});
+//
+//}
 
 void yeardir() {
 yeardir = new File("C:\\HMCalendar\\" + String.valueOf(a));
@@ -341,13 +358,13 @@ a = calendar.get(Calendar.YEAR);
 b = calendar.get(Calendar.MONTH) + 1;
 c = calendar.get(Calendar.DATE);
 
-HMCalendar = new File("C:\\HMCalendar");
-if (HMCalendar.exists()) {
-// System.out.println("ƒtƒ@ƒCƒ‹‚ªŒ©‚Â‚©‚è‚Ü‚µ‚½");
-} else {
-// System.out.println("ƒtƒ@ƒCƒ‹‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñAì¬‚µ‚Ü‚·B");
-HMCalendar.mkdir();
-}
+//HMCalendar = new File("C:\\HMCalendar");
+//if (HMCalendar.exists()) {
+//// System.out.println("ƒtƒ@ƒCƒ‹‚ªŒ©‚Â‚©‚è‚Ü‚µ‚½");
+//} else {
+//// System.out.println("ƒtƒ@ƒCƒ‹‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñAì¬‚µ‚Ü‚·B");
+//HMCalendar.mkdir();
+//}
 CalendarTest calendars = new CalendarTest("ƒJƒŒƒ“ƒ_[");
 calendars.syori();
 
@@ -362,9 +379,9 @@ syori();
 
 public void actionPerformed(ActionEvent e) {
 String btncmd = e.getActionCommand();
-System.out.println(btncmd);
 
-if (btncmd.equals("next")) { // nextƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚Æ‚«‚Ìˆ—
+
+if (btncmd.equals("next")) { // nextƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚½‚Æ‚«‚ÌƒAƒNƒVƒ‡ƒ“
 if (b == 12) { // 12Œ‚È‚ç”N‚É+1‚µ‚Ä‚PŒ‚É–ß‚·B
 a = a + 1;
 b = 1;
@@ -374,7 +391,6 @@ b = b + 1;
 
 restart();
 
-System.out.println("if next");
 } else if (btncmd.equals("back")) {
 if (b == 1) { // 1Œ‚È‚ç”N‚É-1‚µ‚Ä12Œ‚É–ß‚·
 a = a - 1;
@@ -382,14 +398,23 @@ b = 12;
 } else {
 b = b - 1;
 }
+
 restart();
 
-} else if (Integer.parseInt(btncmd) != 0
+
+
+
+
+} else if(btncmd.equals("createWindow")) {
+	createWindow();
+	restart();
+}
+
+else if (Integer.parseInt(btncmd) != 0
 && Integer.parseInt(btncmd) <= 31) {
-System.out.println(b + "/" + btncmd + "‚Ìƒ{ƒ^ƒ“‚ª‰Ÿ‚³‚ê‚Ü‚µ‚½");
 c = Integer.parseInt(btncmd);
-System.out.println(c);
 restart();
+
 }
 
 }
@@ -436,7 +461,11 @@ public void windowIconified(WindowEvent e) {
 public void windowDeactivated(WindowEvent e) {
 
 }
-
+public void createWindow() {
+	JFrame frame2 = new JFrame();
+	frame2.setBounds(0,0,500,500);
+	frame2.setVisible(true);
+}
 
 }
 
